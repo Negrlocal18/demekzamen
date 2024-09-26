@@ -1,0 +1,108 @@
+﻿<Page x:Class="demekzamen.Page1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:demekzamen"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page1">
+
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="MyCol">
+                <Border BorderThickness="1" BorderBrush="Black" Margin="5,5,5,5">
+                    <StackPanel Width="auto" Height="auto" Orientation="Horizontal">
+                        <Image Source="{Binding Logo}" Width="20" Height="20" HorizontalAlignment="Right"></Image>
+                        <StackPanel Orientation="Vertical" Height="auto">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=AgentType.Title}" Width="100" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Text="{Binding Title}" Width="100" HorizontalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                            <TextBlock Text="{Binding Phone}" Width="100" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding sale}" Width="100" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding Priority}" Width="100" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <TextBlock Text="{Binding Path=percent}" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="%" HorizontalAlignment="Right"></TextBlock>
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" TextChanged="TextBox_TextChanged_1" Grid.ColumnSpan="2" Margin="0,0,266,0" VerticalAlignment="Top"></TextBox>
+            <ComboBox Grid.Column="1" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem Tag="0">
+                    <TextBlock Text="Без сортировки" ></TextBlock>
+                </ComboBoxItem>
+                <ComboBoxItem Tag="1">
+                    <TextBlock Text="По возрастанию названия" ></TextBlock>
+                </ComboBoxItem>
+                <ComboBoxItem Tag="2">
+                    <TextBlock Text="По убыванию названия"></TextBlock>
+                </ComboBoxItem>
+                <ComboBoxItem Tag="3">
+                    <TextBlock Text="По возрастанию приоритета"></TextBlock>
+                </ComboBoxItem>
+                <ComboBoxItem Tag="4">
+                    <TextBlock Text="По убыванию приоритета"></TextBlock>
+                </ComboBoxItem>
+            </ComboBox>
+            <ComboBox x:Name="Type" Grid.Column="2" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" SelectionChanged="Type_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+
+        <DataGrid AutoGenerateColumns="False" x:Name="agentGrid" Grid.Row="1" IsReadOnly="True" GridLinesVisibility="None">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn CellTemplate="{StaticResource MyCol}" Width="*">
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel x:Name="pagin" Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
+            <!-- Pagination buttons will be added here -->
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <TextBlock Text="Всего: " HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBlock x:Name="full" Text="" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+        </StackPanel>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="updateButton" Grid.Column="0" Content="Редактировать" Click="updateButton_Click" />
+            <Button x:Name="deleteButton" Grid.Column="1" Content="Удалить" Click="deleteButton_Click" />
+            <Button x:Name="addButton" Grid.Column="2" Content="Добавить" Click="addButton_Click" />
+            <Button x:Name="revButton" Grid.Column="3" Content="Обновить" Click="revButton_Click" />
+            <Button x:Name="back" Grid.Column="4" Content="Назад" Click="back_Click" />
+            <Button x:Name="forward" Grid.Column="5" Content="Вперед" Click="forward_Click" />
+        </Grid>
+    </Grid>
+</Page>
